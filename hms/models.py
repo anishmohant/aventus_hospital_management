@@ -1,7 +1,7 @@
 from django.db import models
 
 class Patient(models.Model):
-    patient_id = models.CharField(max_length=50, unique=True)
+    patient_id = models.CharField(max_length=50, primary_key=True)
     name = models.CharField(max_length=100)
     contact_info = models.CharField(max_length=300)
     medical_history = models.TextField()
@@ -12,8 +12,8 @@ class Patient(models.Model):
         return self.name
 
 class Appointment(models.Model):
-    appointment_id = models.CharField(max_length=50, unique=True)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    appointment_id = models.CharField(max_length=50, primary_key=True)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, to_field='patient_id',default=None)
     doctor_name = models.CharField(max_length=100)
     department = models.CharField(max_length=50)
     appointment_date = models.DateField()
